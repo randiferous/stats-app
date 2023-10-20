@@ -21,7 +21,7 @@ function App() {
         const response = await fetch('https://statsapi.web.nhl.com/api/v1/teams')
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
 
         setCopyright(data.copyright);
 
@@ -64,9 +64,6 @@ function App() {
         const response = await fetch('https://statsapi.web.nhl.com/api/v1/franchises')
         const data = await response.json();
 
-        // console.log(data);
-        //console.log(teams);
-
         for (let i = 0; i < teams.length; i++) {
           franchiseIds.push(teams[i].franchiseId);
         };
@@ -87,20 +84,21 @@ function App() {
     fetchData();
   }, [teams]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('https://statsapi.web.nhl.com/api/v1/venues/null')
-  //       const data = await response.json();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // const response = await fetch('https://statsapi.web.nhl.com/api/v1/configurations')
+        const response = await fetch('https://statsapi.web.nhl.com/api/v1/imageSizes')
+        const data = await response.json();
 
-  //       console.log(data)
-  //     } catch (error) {
-  //       console.error('Error fetching NHL data');
-  //     }
-  //   };
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching NHL data');
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
@@ -115,7 +113,7 @@ function App() {
                 {atlanticTeams.map((team) => (
                   <li key={team.id}>
                     <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                    <p>
+                    <p className = "margin-top-0">
                       Since: {team.firstYearOfPlay} <br></br>
                       Venue: {team.venue.name}, {team.venue.city}
                     </p>
@@ -129,7 +127,7 @@ function App() {
                 {metropolitanTeams.map((team) => (
                   <li key={team.id}>
                     <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                    <p>
+                    <p className = "margin-top-0">
                       Since: {team.firstYearOfPlay} <br></br>
                       Venue: {team.venue.name}, {team.venue.city}
                     </p>
@@ -148,7 +146,7 @@ function App() {
                 {centralTeams.map((team) => (
                   <li key={team.id}>
                     <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                    <p>
+                    <p className = "margin-top-0">
                       Since: {team.firstYearOfPlay} <br></br>
                       Venue: {team.venue.name}, {team.venue.city}
                     </p>
@@ -162,7 +160,7 @@ function App() {
                 {pacificTeams.map((team) => (
                   <li key={team.id}>
                     <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                    <p>
+                    <p className = "margin-top-0">
                       Since: {team.firstYearOfPlay} <br></br>
                       Venue: {team.venue.name}, {team.venue.city}
                     </p>
@@ -181,7 +179,7 @@ function App() {
           </li>
         ))}
       </ul>
-      <footer>
+      <footer className="padding-tb-2 margin-lr-5">
         {copyright}
       </footer>
     </div>
