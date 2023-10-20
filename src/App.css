@@ -7,6 +7,22 @@
   pointer-events: none;
 }
 
+.flex {
+  display: flex;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.no-bullets {
+  list-style-type: none;
+}
+
+.no-start-padding {
+  padding-inline-start: 0px !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
