@@ -11,6 +11,14 @@
   display: flex;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
 .width-50 {
   width: 50%;
 }
