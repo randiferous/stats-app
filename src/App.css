@@ -11,6 +11,10 @@
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -19,22 +23,71 @@
   justify-content: space-evenly;
 }
 
+.align-center {
+  align-items: center;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.width-75 {
+  width: 75%;
+}
+
 .width-50 {
   width: 50%;
+}
+
+.width-40 {
+  width: 40%;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.margin-auto {
+  margin: auto;
 }
 
 .margin-top-0 {
   margin-top: 0px !important;
 }
 
-.padding-tb-2 {
-  padding-top: 2%;
-  padding-bottom: 2%;
+.margin-tb-0 {
+  margin-top: 0% !important;
+  margin-bottom: 0px !important;
 }
 
-.margin-lr-5 {
-  margin-left: 5%;
-  margin-right: 5%;
+.padding-tb-3 {
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.padding-lr-5 {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.background-offwhite {
+  background-color: #f8f8ff;
+}
+
+.background-slateblue {
+  background-color: #2F4F4F;
+}
+
+.text-offwhite {
+  color: #f8f8ff;
+}
+
+.text-small {
+  font-size: 0.8rem;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .no-bullets {
@@ -44,6 +97,19 @@
 .no-start-padding {
   padding-inline-start: 0px !important;
 }
+
+.standing-table {
+  border-collapse: collapse !important; /* ensures there are no gaps between table borders */
+  border-spacing: 0 !important;  /* for older browsers, ensures there are no gaps between cells */
+}
+
+.underlined-row td {
+  border-bottom: 1px solid #000; /* or another color */
+}
+
+/* .box-shadow {
+  box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.3);
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

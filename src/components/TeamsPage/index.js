@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import teamLogos from '../../utility/logos';
 
 function TeamsPage() {
     const [teams, setTeams] = useState([]);
@@ -22,6 +23,12 @@ function TeamsPage() {
                 // console.log(data);
 
                 for (let i = 0; i < data.teams.length; i++) {
+                    for (let j = 0; j < teamLogos.length; j++) {
+                        if (teamLogos[j].includes(data.teams[i].teamName.toLowerCase()) || teamLogos[j].includes(data.teams[i].shortName.toLowerCase())) {
+                            data.teams[i].logo = teamLogos[j];
+                        }
+                    }
+
                     if (data.teams[i].division.name === 'Atlantic') {
                         atlanticTeams.push(data.teams[i]);
                     } else if (data.teams[i].division.name === 'Metropolitan') {
@@ -80,24 +87,33 @@ function TeamsPage() {
         fetchData();
     }, [teams]);
 
+    const displayTeams = (team) => {
+        return (
+            <li key={team.id} className="flex align-center justify-center">
+                <a href={team.officialSiteUrl} target="_blank" rel="noreferrer" className="width-40"><img src={team.logo} alt={team.name} className="logo width-100"></img></a>
+                <div className="width-40">
+                    <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
+                    <p className="margin-top-0">
+                        Since: {team.firstYearOfPlay} <br></br>
+                        Venue: {team.venue.name}, {team.venue.city}
+                    </p>
+                </div>
+            </li>
+        )
+    }
+
     return (
         <div>
             <h1>NHL Teams</h1>
             <div className="flex">
                 <div className="width-50">
-                    <h2>Eastern Conference</h2>
+                    <h2 className="underline">Eastern Conference</h2>
                     <div className="flex">
                         <div className="width-50">
                             <h2>Atlantic Division</h2>
                             <ul className="no-bullets no-start-padding">
                                 {atlanticTeams.map((team) => (
-                                    <li key={team.id}>
-                                        <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                                        <p className="margin-top-0">
-                                            Since: {team.firstYearOfPlay} <br></br>
-                                            Venue: {team.venue.name}, {team.venue.city}
-                                        </p>
-                                    </li>
+                                    displayTeams(team)
                                 ))}
                             </ul>
                         </div>
@@ -105,32 +121,20 @@ function TeamsPage() {
                             <h2>Metropolitan Division</h2>
                             <ul className="no-bullets no-start-padding">
                                 {metropolitanTeams.map((team) => (
-                                    <li key={team.id}>
-                                        <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                                        <p className="margin-top-0">
-                                            Since: {team.firstYearOfPlay} <br></br>
-                                            Venue: {team.venue.name}, {team.venue.city}
-                                        </p>
-                                    </li>
+                                    displayTeams(team)
                                 ))}
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div className="width-50">
-                    <h2>Western Conference</h2>
+                    <h2 className="underline">Western Conference</h2>
                     <div className="flex">
                         <div className="width-50">
                             <h2>Central Division</h2>
                             <ul className="no-bullets no-start-padding">
                                 {centralTeams.map((team) => (
-                                    <li key={team.id}>
-                                        <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                                        <p className="margin-top-0">
-                                            Since: {team.firstYearOfPlay} <br></br>
-                                            Venue: {team.venue.name}, {team.venue.city}
-                                        </p>
-                                    </li>
+                                    displayTeams(team)
                                 ))}
                             </ul>
                         </div>
@@ -138,13 +142,7 @@ function TeamsPage() {
                             <h2>Pacific Division</h2>
                             <ul className="no-bullets no-start-padding">
                                 {pacificTeams.map((team) => (
-                                    <li key={team.id}>
-                                        <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
-                                        <p className="margin-top-0">
-                                            Since: {team.firstYearOfPlay} <br></br>
-                                            Venue: {team.venue.name}, {team.venue.city}
-                                        </p>
-                                    </li>
+                                    displayTeams(team)
                                 ))}
                             </ul>
                         </div>
