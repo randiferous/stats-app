@@ -68,6 +68,27 @@ function GamesPage() {
                         const secondStar = data.liveData.decisions.secondStar?.fullName;
                         const thirdStar = data.liveData.decisions.thirdStar?.fullName;
 
+                        if (firstStar !== undefined) {
+                            const firstStarLink = data.liveData.decisions.firstStar.link;
+                            const secondStarLink = data.liveData.decisions.secondStar.link;
+                            const thirdStarLink = data.liveData.decisions.thirdStar.link;
+
+                            const starLinkArray = [firstStarLink, secondStarLink, thirdStarLink];
+                            const teamAbbreviationArray = [];
+
+                            for (let j = 0; j < starLinkArray.length; j++) {
+                                const response = await fetch(`https://statsapi.web.nhl.com${starLinkArray[j]}`);
+                                const data = await response.json();
+                                const teamLink = data.people[0].currentTeam.link;
+
+                                const teamResponse = await fetch(`https://statsapi.web.nhl.com${teamLink}`);
+                                const teamData = await teamResponse.json();
+                                const teamAbbreviation = teamData.teams[0].abbreviation;
+                                teamAbbreviationArray.push(teamAbbreviation);
+                                effectGamesArray[i].teamAbbreviationArray = teamAbbreviationArray;
+                            }
+                        }
+
                         effectGamesArray[i].awayShots = awayShots;
                         effectGamesArray[i].homeShots = homeShots;
                         effectGamesArray[i].awayPIM = awayPIM;
@@ -113,9 +134,9 @@ function GamesPage() {
                             </div>
                         </div>
                         <h4>{game.gameStatus}</h4>
-                        <h5 className="margin-tb-0">1st Star: {game.firstStar}</h5>
-                        <h5 className="margin-tb-0">2nd Star: {game.secondStar}</h5>
-                        <h5 className="margin-tb-0">3rd Star: {game.thirdStar}</h5>
+                        <h5 className="margin-tb-0">1st Star: {game.firstStar} ({game.teamAbbreviationArray[0]})</h5>
+                        <h5 className="margin-tb-0">2nd Star: {game.secondStar} ({game.teamAbbreviationArray[1]})</h5>
+                        <h5 className="margin-tb-0">3rd Star: {game.thirdStar} ({game.teamAbbreviationArray[2]})</h5>
                         <h4>{game.gameVenue}</h4>
                     </div>
                 ))}

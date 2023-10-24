@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.no-display {
+  display: none;
+}
+
 .flex {
   display: flex;
 }
@@ -33,6 +37,10 @@
 
 .width-75 {
   width: 75%;
+}
+
+.width-60 {
+  width: 60%;
 }
 
 .width-50 {
@@ -99,12 +107,17 @@
 }
 
 .standing-table {
-  border-collapse: collapse !important; /* ensures there are no gaps between table borders */
-  border-spacing: 0 !important;  /* for older browsers, ensures there are no gaps between cells */
+  border-collapse: collapse !important; 
+  border-spacing: 0 !important;  
+}
+
+.roster-table {
+  border-collapse: collapse !important; 
+  border-spacing: 0 !important;
 }
 
 .underlined-row td {
-  border-bottom: 1px solid #000; /* or another color */
+  border-bottom: 1px solid #000;
 }
 
 /* .box-shadow {
