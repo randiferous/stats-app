@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/stats-app/static/css/main.7ec8e167.css",
-    "main.js": "/stats-app/static/js/main.7bd93b0a.js",
+    "main.js": "/stats-app/static/js/main.ef141231.js",
     "static/js/787.4deca040.chunk.js": "/stats-app/static/js/787.4deca040.chunk.js",
     "static/media/kraken-logo-square.png": "/stats-app/static/media/kraken-logo-square.72bb06c670d44355685c.png",
     "static/media/buffalo-sabres-logo.svg": "/stats-app/static/media/buffalo-sabres-logo.8aafae1b42151d8a0aaf6ae922e1008b.svg",
@@ -37,11 +37,11 @@
     "static/media/philadelphia-flyers-logo.svg": "/stats-app/static/media/philadelphia-flyers-logo.e89250c32420a96bbb1e853876ca9350.svg",
     "index.html": "/stats-app/index.html",
     "main.7ec8e167.css.map": "/stats-app/static/css/main.7ec8e167.css.map",
-    "main.7bd93b0a.js.map": "/stats-app/static/js/main.7bd93b0a.js.map",
+    "main.ef141231.js.map": "/stats-app/static/js/main.ef141231.js.map",
     "787.4deca040.chunk.js.map": "/stats-app/static/js/787.4deca040.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7ec8e167.css",
-    "static/js/main.7bd93b0a.js"
+    "static/js/main.ef141231.js"
   ]
 }
