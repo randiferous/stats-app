@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Project Link
 https://randiferous.github.io/stats-app/
+https://main.d3iv09uylzs92y.amplifyapp.com
 
 ## Available Scripts
 

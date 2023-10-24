@@ -115,7 +115,7 @@ function GamesPage() {
         <div>
             <h1>Games</h1>
             <h2>{formattedDate}</h2>
-            <div className = "flex flex-wrap space-evenly">
+            <div className="flex flex-wrap space-evenly">
                 {gamesArray.map((game, index) => (
                     <div key={index} className="width-40">
                         <div className="flex justify-center">
@@ -134,9 +134,16 @@ function GamesPage() {
                             </div>
                         </div>
                         <h4>{game.gameStatus}</h4>
-                        <h5 className="margin-tb-0">1st Star: {game.firstStar} ({game.teamAbbreviationArray[0]})</h5>
-                        <h5 className="margin-tb-0">2nd Star: {game.secondStar} ({game.teamAbbreviationArray[1]})</h5>
-                        <h5 className="margin-tb-0">3rd Star: {game.thirdStar} ({game.teamAbbreviationArray[2]})</h5>
+                        {(game.firstStar !== 'N/A') && (
+                            <div>
+                                <h4>Stars of the Game</h4>
+                                <h5 className="margin-tb-0">1st Star: {game.firstStar} ({game?.teamAbbreviationArray[0]})</h5>
+                                <h5 className="margin-tb-0">2nd Star: {game.secondStar} ({game?.teamAbbreviationArray[1]})</h5>
+                                <h5 className="margin-tb-0">3rd Star: {game.thirdStar} ({game?.teamAbbreviationArray[2]})</h5>
+                            </div>
+                        )
+                        }
+
                         <h4>{game.gameVenue}</h4>
                     </div>
                 ))}
