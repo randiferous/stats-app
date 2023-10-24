@@ -61,6 +61,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
+          <Route path="/" element={<Navigate to="/games" replace />}></Route>
           <Route path="/stats-app" element={<Navigate to="/games" replace />}></Route>
           <Route path="/games" element={<GamesPage />}></Route>
           <Route path="/teams" element={<TeamsPage />}></Route>
