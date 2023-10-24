@@ -68,24 +68,18 @@ function GamesPage() {
                         const secondStar = data.liveData.decisions.secondStar?.fullName;
                         const thirdStar = data.liveData.decisions.thirdStar?.fullName;
 
-                        if (firstStar !== undefined) {
+                        const teamAbbreviationArray = ["", "", ""]
+
+                        if (data.liveData.decisions.length >= 1) {
                             const firstStarLink = data.liveData.decisions.firstStar.link;
                             const secondStarLink = data.liveData.decisions.secondStar.link;
                             const thirdStarLink = data.liveData.decisions.thirdStar.link;
 
                             const starLinkArray = [firstStarLink, secondStarLink, thirdStarLink];
-                            const teamAbbreviationArray = [];
 
                             for (let j = 0; j < starLinkArray.length; j++) {
-                                const response = await fetch(`https://statsapi.web.nhl.com${starLinkArray[j]}`);
-                                const data = await response.json();
-                                const teamLink = data.people[0].currentTeam.link;
-
-                                const teamResponse = await fetch(`https://statsapi.web.nhl.com${teamLink}`);
-                                const teamData = await teamResponse.json();
-                                const teamAbbreviation = teamData.teams[0].abbreviation;
-                                teamAbbreviationArray.push(teamAbbreviation);
-                                effectGamesArray[i].teamAbbreviationArray = teamAbbreviationArray;
+                                const teamAbbreviation = await grabAbbreviation(starLinkArray[j]);
+                                teamAbbreviationArray.unshift(teamAbbreviation);
                             }
                         }
 
@@ -96,11 +90,13 @@ function GamesPage() {
                         effectGamesArray[i].firstStar = firstStar || 'N/A';
                         effectGamesArray[i].secondStar = secondStar || 'N/A';
                         effectGamesArray[i].thirdStar = thirdStar || 'N/A';
+                        effectGamesArray[i].teamAbbreviationArray = teamAbbreviationArray;
                     }
 
                     setGamesArray(effectGamesArray);
                 } catch (error) {
                     console.error('Error fetching NHL data');
+                    console.log(error);
                 }
 
             } catch (error) {
@@ -110,6 +106,18 @@ function GamesPage() {
 
         fetchData();
     }, []);
+
+    const grabAbbreviation = async (link) => {
+        const response = await fetch(`https://statsapi.web.nhl.com${link}`);
+        const data = await response.json();
+        const teamLink = await data.people[0].currentTeam.link;
+
+        const teamResponse = await fetch(`https://statsapi.web.nhl.com${teamLink}`);
+        const teamData = await teamResponse.json();
+        const teamAbbreviation = await teamData.teams[0].abbreviation;
+
+        return teamAbbreviation;
+    }
 
     return (
         <div>
@@ -134,7 +142,7 @@ function GamesPage() {
                             </div>
                         </div>
                         <h4>{game.gameStatus}</h4>
-                        {(game.firstStar !== 'N/A') && (
+                        {(game?.firstStar !== 'N/A') && (
                             <div>
                                 <h4>Stars of the Game</h4>
                                 <h5 className="margin-tb-0">1st Star: {game.firstStar} ({game?.teamAbbreviationArray[0]})</h5>
