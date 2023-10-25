@@ -73,8 +73,8 @@ function StandingsPage() {
     return (
         <div>
             <h1>Standings</h1>
-            <h2 className="underline">Eastern Conference</h2>
-            <div className="flex">
+            <h2 className="underline margin-b-0">Eastern Conference</h2>
+            <div className="flex margin-b-3">
                 <div className="width-50">
                     <h2>Atlantic Division</h2>
                     {divisionStandings(atlanticStandings)}
@@ -84,8 +84,8 @@ function StandingsPage() {
                     {divisionStandings(metropolitanStandings)}
                 </div>
             </div>
-            <h2 className="underline">Western Conference</h2>
-            <div className="flex">
+            <h2 className="underline margin-b-0">Western Conference</h2>
+            <div className="flex margin-b-3">
                 <div className="width-50">
                     <h2>Central Division</h2>
                     {divisionStandings(centralStandings)}
@@ -95,7 +95,9 @@ function StandingsPage() {
                     {divisionStandings(pacificStandings)}
                 </div>
             </div>
-            <p><i>Legend: GP = Games Played, W = Wins, L = Losses, OT = Overtime Losses, Pts = Points (+2 per W, +1 per OT), GF = Goals For, GA = Goals Against</i></p>
+            <p className="margin-b-3">
+                <i>Legend: GP = Games Played, W = Wins, L = Losses, OT = Overtime Losses, Pts = Points (+2 per W, +1 per OT), GF = Goals For, GA = Goals Against</i>
+            </p>
         </div>
     );
 }

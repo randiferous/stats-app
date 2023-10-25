@@ -5,15 +5,22 @@ import TeamsPage from './components/TeamsPage';
 import GamesPage from './components/GamesPage';
 import StandingsPage from './components/Standings';
 import RosterPage from './components/RosterPage';
+import DraftPage from './components/DraftPage'
 
-// import { Amplify } from 'aws-amplify';
-// import { Authenticator } from '@aws-amplify/ui-react';
-// import '@aws-amplify/ui-react/styles.css';
-// import awsExports from './aws-exports';
-// Amplify.configure(awsExports);
+import { Amplify } from 'aws-amplify';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 function App() {
   const [copyright, setCopyright] = useState('');
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  // const { route } = useAuthenticator((context) => [context.route]);
+
+  // console.log(user);
+  // console.log(route);
+  // console.log(signOut);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +41,7 @@ function App() {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       // const response = await fetch('https://statsapi.web.nhl.com/api/v1/teams/4/roster')
-  //       const response = await fetch('https://statsapi.web.nhl.com/api/v1/teams/4/stats')
+  //       const response = await fetch('https://statsapi.web.nhl.com/api/v1/draft')
   //       const data = await response.json();
 
   //       console.log(data)
@@ -49,38 +55,72 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Authenticator>
-        {({ signOut, user }) => (
-          <main>
-            <h1>Hello {user.username}</h1>
-            <button onClick={signOut}>Sign out</button>
-          </main>
-        )}
-      </Authenticator> */}
       <Router>
         <nav>
           <ul className="no-bullets no-start-padding flex space-evenly">
+            {
+              user ? (
+                <li>
+                  Welcome {user.attributes.given_name}!
+                </li>
+              ) : (
+                <></>
+              )
+            }
             <li>
-              <Link to="/games">Games</Link>
+              <Link to="/teams" className="pointer">Teams</Link>
             </li>
             <li>
-              <Link to="/standings">Standings</Link>
+              <Link to="/standings" className="pointer">Standings</Link>
             </li>
             <li>
-              <Link to="/teams">Teams</Link>
+              <Link to="/roster" className="pointer">Roster</Link>
             </li>
-            <li>
-              <Link to="/roster">Roster</Link>
-            </li>
+            {
+              user ? (
+                <>
+                  <li>
+                    <Link to="/games" className="pointer">Games</Link>
+                  </li>
+                  <li>
+                    <Link to="/draft" className="pointer">Draft</Link>
+                  </li>
+                  <li>
+                    <button onClick={signOut}>Sign out</button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login" className="pointer">Login</Link>
+                  </li>
+                </>
+              )
+            }
+            {/* <li>
+              <Link to="/login" className="pointer">Login</Link>
+            </li> */}
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<Navigate to="/games" replace />}></Route>
-          <Route path="/stats-app" element={<Navigate to="/games" replace />}></Route>
-          <Route path="/games" element={<GamesPage />}></Route>
+          <Route path="/" element={<Navigate to="/teams" replace />}></Route>
+          <Route path="/stats-app" element={<Navigate to="/teams" replace />}></Route>
           <Route path="/teams" element={<TeamsPage />}></Route>
           <Route path="/standings" element={<StandingsPage />}></Route>
           <Route path="/roster" element={<RosterPage />}></Route>
+          <Route path="/games" element={<GamesPage />}></Route>
+          <Route path="/draft" element={<DraftPage />}></Route>
+          <Route path="/login" element={
+            <Authenticator className="margin-tb-3">
+              {
+                user ? (
+                  <Navigate to="/games" replace />
+                ) : (
+                  <></>
+                )
+              }
+            </Authenticator>
+          }></Route>
         </Routes>
       </Router>
       <footer className="padding-tb-3 padding-lr-5 background-slateblue text-offwhite text-small">

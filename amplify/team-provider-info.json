@@ -1,0 +1,25 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyf2c8558d68fb4-staging-162429-authRole",
+      "UnauthRoleArn": "arn:aws:iam::238597097140:role/amplify-amplifyf2c8558d68fb4-staging-162429-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::238597097140:role/amplify-amplifyf2c8558d68fb4-staging-162429-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-amplifyf2c8558d68fb4-staging-162429-deployment",
+      "UnauthRoleName": "amplify-amplifyf2c8558d68fb4-staging-162429-unauthRole",
+      "StackName": "amplify-amplifyf2c8558d68fb4-staging-162429",
+      "StackId": "arn:aws:cloudformation:us-east-2:238597097140:stack/amplify-amplifyf2c8558d68fb4-staging-162429/f932c2b0-7352-11ee-9be0-02238268dced",
+      "AmplifyAppId": "d35ntjugpu1957"
+    },
+    "categories": {
+      "auth": {
+        "statsapp7f6a332c": {
+          "userPoolId": "us-east-2_qYNu1Fluo",
+          "userPoolName": "hockey-stat-app-userpool",
+          "webClientId": "1qh4b5rviuc98rk7204dsvostk",
+          "nativeClientId": "1qh4b5rviuc98rk7204dsvostk"
+        }
+      }
+    }
+  }
+}

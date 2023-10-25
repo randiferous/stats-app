@@ -157,8 +157,8 @@ function RosterPage() {
             </select>
             <div className="flex">
                 <div className="width-60">
-                    <h2>Roster</h2>
-                    <table className="roster-table margin-auto width-60">
+                    <h2 className='underline'>Roster</h2>
+                    <table className="roster-table margin-auto width-60 margin-b-5">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -188,20 +188,56 @@ function RosterPage() {
                     </table>
                 </div>
                 <div className="width-40 margin-auto">
-                    <h2>Team Stats</h2>
+                    <h2 className='underline'>Team Stats</h2>
                     {selectedTeam.teamID === ""
                         ?
                         <></>
                         :
                         <>
-                            <p>Wins: {teamStats[0]?.wins} ({teamStats[0]?.winsRank})</p>
-                            <p>Goals For: {teamStats[0]?.goalsFor} ({teamStats[0]?.goalsRank})</p>
-                            <p>Goals Against: {teamStats[0]?.goalsAgainst} ({teamStats[0]?.goalsAgainstRank})</p>
-                            <p>Shots Per Game: {teamStats[0]?.shotsPerGame} ({teamStats[0]?.shotsRank})</p>
-                            <p>Shots Allowed Per Game: {teamStats[0]?.shotsAllowedPerGame} ({teamStats[0]?.shotsAllowedRank})</p>
-                            <p>Power Play Percentage: {teamStats[0]?.powerPlayPercentage} ({teamStats[0]?.powerPlayRank})</p>
-                            <p>Penalty Kill Percentage: {teamStats[0]?.penaltyKillPercentage} ({teamStats[0]?.penaltyKillRank})</p>
-                            <p>Faceoff Percentage: {teamStats[0]?.faceoffPercentage} ({teamStats[0]?.faceoffRank})</p>
+                        <table className="margin-auto width-60">
+                            <tbody>
+                                <tr>
+                                    <th>Wins</th>
+                                    <td>{teamStats[0]?.wins}</td>
+                                     <td>({teamStats[0]?.winsRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Goals For</th>
+                                    <td>{teamStats[0]?.goalsFor} </td>
+                                    <td>({teamStats[0]?.goalsRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Goals Against</th>
+                                    <td>{teamStats[0]?.goalsAgainst} </td>
+                                    <td>({teamStats[0]?.goalsAgainstRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Shots Per Game</th>
+                                    <td>{teamStats[0]?.shotsPerGame}</td>
+                                    <td> ({teamStats[0]?.shotsRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Shots Allowed Per Game</th>
+                                    <td>{teamStats[0]?.shotsAllowedPerGame} </td>
+                                    <td>({teamStats[0]?.shotsAllowedRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Power Play Percentage</th>
+                                    <td>{teamStats[0]?.powerPlayPercentage} </td>
+                                    <td>({teamStats[0]?.powerPlayRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Penalty Kill Percentage</th>
+                                    <td>{teamStats[0]?.penaltyKillPercentage} </td>
+                                    <td>({teamStats[0]?.penaltyKillRank})</td>
+                                </tr>
+                                <tr>
+                                    <th>Faceoff Percentage</th>
+                                    <td>{teamStats[0]?.faceoffPercentage} </td>
+                                    <td>({teamStats[0]?.faceoffRank})</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         </>
                     }
                 </div>
