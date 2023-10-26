@@ -14,7 +14,7 @@ function DraftPage() {
         const dataDraftYear = data.drafts[0].draftYear;
         const dataFullDraft = data.drafts[0].rounds;
 
-        console.log(dataFullDraft)
+        // console.log(dataFullDraft)
         setDraftYear(dataDraftYear)
         setFullDraft(dataFullDraft)
       } catch (error) {
@@ -37,10 +37,11 @@ function DraftPage() {
           <option key={index} value={index + 1}>Round {index + 1}</option>
         ))}
       </select>
-      <div className = "flex flex-wrap margin-lr-10 margin-tb-3">
+      <h2 className="margin-t-3">Round {round}</h2>
+      <div className = "flex flex-wrap margin-lr-10 margin-b-3 ">
         {fullDraft[round - 1]?.picks.map((pick, index) => (
-          <div key={index} className="width-12">
-            <p>{pick.pickOverall} - {pick.prospect.fullName}</p>
+          <div key={index} className="width-12 black-border">
+            <p><b>{pick.pickOverall}.</b> {pick.prospect.fullName}</p>
             <p>{pick.team.name}</p>
           </div>
         ))}

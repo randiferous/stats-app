@@ -17,7 +17,7 @@ function GamesPage() {
             try {
                 const response = await fetch('https://statsapi.web.nhl.com/api/v1/schedule')
                 const data = await response.json();
-                // console.log(data);
+                //console.log(data);
 
                 const responseArray = data.dates[0].games;
 
@@ -146,20 +146,20 @@ function GamesPage() {
                     <div key={index} className="width-40">
                         <div className="flex justify-center">
                             <div>
-                                <h3>{game.awayTeam} ({game.awayWins}-{game.awayLosses}-{game.awayOT})</h3>
+                                <h3 className="margin-b-0">{game.awayTeam} ({game.awayWins}-{game.awayLosses}-{game.awayOT})</h3>
                                 <img src={game.awayLogo} alt="placeholder" className="width-40"></img>
-                                <h3>{game.awayScore}</h3>
+                                <h3 className="margin-top-0">{game.awayScore}</h3>
                                 <h5 className="margin-tb-0">{game?.awayShots} Shots</h5>
                                 <h5 className="margin-tb-0">{game?.awayPIM} PIM</h5>
                             </div>
                             <div>
                                 <h3>&nbsp;&nbsp;@&nbsp;&nbsp;</h3>
-                                <h3 className="margin-t-200">VS</h3>
+                                <h3 className="margin-t-175">VS</h3>
                             </div>
                             <div>
-                                <h3>{game.homeTeam} ({game.homeWins}-{game.homeLosses}-{game.homeOT})</h3>
+                                <h3 className="margin-b-0">{game.homeTeam} ({game.homeWins}-{game.homeLosses}-{game.homeOT})</h3>
                                 <img src={game.homeLogo} alt="placeholder" className="width-40"></img>
-                                <h3>{game.homeScore}</h3>
+                                <h3 className="margin-top-0">{game.homeScore}</h3>
                                 <h5 className="margin-tb-0">{game?.homeShots} Shots</h5>
                                 <h5 className="margin-tb-0">{game?.homePIM} PIM</h5>
                             </div>
@@ -167,11 +167,11 @@ function GamesPage() {
                         {
                             (((game.gameStatus === "In Progress") || (game.currentPeriod === "OT")) &&
                                 (
-                                    <h4>{game.gameStatus} - {game.currentPeriod}</h4>
+                                    <h4 className="margin-top-0">{game.gameStatus} - {game.currentPeriod}</h4>
                                 ))
                             ||
                             (
-                                <h4>{game.gameStatus}</h4>
+                                <h4 className="margin-top-0">{game.gameStatus}</h4>
                             )
                         }
                         {(game?.firstStar !== 'N/A') && (
