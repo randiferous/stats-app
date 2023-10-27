@@ -46,7 +46,7 @@ function App() {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const response = await fetch('https://statsapi.web.nhl.com/api/v1/draft')
+  //       const response = await fetch('https://statsapi.web.nhl.com/api/v1/awards/1')
   //       const data = await response.json();
 
   //       console.log(data)
@@ -66,8 +66,13 @@ function App() {
     return children;
   }
 
+  // const handleSignIn = () => {
+  //   setCurrentPage("games")
+  // }
+
   const handleSignOut = () => {
     signOut();
+    return (<Navigate to="/login" />);
   }  
 
   return (
@@ -138,13 +143,11 @@ function App() {
           </Route>
           <Route path="/login" element={
             <Authenticator className="margin-tb-3">
-              {
-                authStatus === "authenticated" ? (
+              {authStatus === "authenticated" ? (
                   <Navigate to="/games" replace />
                 ) : (
                   <></>
-                )
-              }
+                )}
             </Authenticator>
           }></Route>
         </Routes>

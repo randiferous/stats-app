@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import teamLogos from '../../utility/logos';
+import { API } from "aws-amplify";
+import { listTeams } from '../../graphql/queries';
 
 function TeamsPage() {
     const [teams, setTeams] = useState([]);
@@ -17,39 +19,42 @@ function TeamsPage() {
 
         const fetchData = async () => {
             try {
-                const response = await fetch('https://statsapi.web.nhl.com/api/v1/teams')
-                const data = await response.json();
+                const allTeams = await API.graphql({
+                    query: listTeams
+                });
+                const allTeamsData = allTeams.data.listTeams.items;
 
-                // console.log(data);
+                for (let i = 0; i < allTeamsData.length; i++) {
+                    const teamNameSplit = allTeamsData[i].teamName.split(' ');
+                    const shortName = teamNameSplit[teamNameSplit.length - 1];
 
-                for (let i = 0; i < data.teams.length; i++) {
                     for (let j = 0; j < teamLogos.length; j++) {
-                        if (teamLogos[j].includes(data.teams[i].teamName.toLowerCase()) || teamLogos[j].includes(data.teams[i].shortName.toLowerCase())) {
-                            data.teams[i].logo = teamLogos[j];
+                        if (teamLogos[j].includes(shortName.toLowerCase())) {
+                            allTeamsData[i].logo = teamLogos[j];
                         }
                     }
 
-                    if (data.teams[i].division.name === 'Atlantic') {
-                        atlanticTeams.push(data.teams[i]);
-                    } else if (data.teams[i].division.name === 'Metropolitan') {
-                        metropolitanTeams.push(data.teams[i]);
-                    } else if (data.teams[i].division.name === 'Central') {
-                        centralTeams.push(data.teams[i]);
+                    if (allTeamsData[i].division === 'Atlantic') {
+                        atlanticTeams.push(allTeamsData[i]);
+                    } else if (allTeamsData[i].division === 'Metropolitan') {
+                        metropolitanTeams.push(allTeamsData[i]);
+                    } else if (allTeamsData[i].division === 'Central') {
+                        centralTeams.push(allTeamsData[i]);
                     } else {
-                        pacificTeams.push(data.teams[i]);
+                        pacificTeams.push(allTeamsData[i]);
                     }
                 }
 
-                const sortedAtlanticTeams = atlanticTeams.sort((a, b) => (a.name > b.name) ? 1 : -1);
-                const sortedMetropolitanTeams = metropolitanTeams.sort((a, b) => (a.name > b.name) ? 1 : -1);
-                const sortedCentralTeams = centralTeams.sort((a, b) => (a.name > b.name) ? 1 : -1);
-                const sortedPacificTeams = pacificTeams.sort((a, b) => (a.name > b.name) ? 1 : -1);
+                const sortedAtlanticTeams = atlanticTeams.sort((a, b) => (a.teamName > b.teamName) ? 1 : -1);
+                const sortedMetropolitanTeams = metropolitanTeams.sort((a, b) => (a.teamName > b.teamName) ? 1 : -1);
+                const sortedCentralTeams = centralTeams.sort((a, b) => (a.teamName > b.teamName) ? 1 : -1);
+                const sortedPacificTeams = pacificTeams.sort((a, b) => (a.teamName > b.teamName) ? 1 : -1);
 
                 setAtlanticTeams(sortedAtlanticTeams);
                 setMetropolitanTeams(sortedMetropolitanTeams);
                 setCentralTeams(sortedCentralTeams);
                 setPacificTeams(sortedPacificTeams);
-                setTeams(data.teams);
+                setTeams(allTeamsData);
             } catch (error) {
                 console.error('Error fetching NHL data');
             }
@@ -60,20 +65,16 @@ function TeamsPage() {
 
     useEffect(() => {
         const previousFranchises = [];
-        const franchiseIds = [];
 
         const fetchData = async () => {
             try {
                 const response = await fetch('https://statsapi.web.nhl.com/api/v1/franchises')
                 const data = await response.json();
 
-                for (let i = 0; i < teams.length; i++) {
-                    franchiseIds.push(teams[i].franchiseId);
-                };
-
                 for (let i = 0; i < data.franchises.length; i++) {
-                    const franchiseId = data.franchises[i].franchiseId;
-                    if (!franchiseIds.includes(franchiseId)) {
+                    const franchiseLastSeason = data.franchises[i].lastSeasonId?.toString();
+                    console.log(franchiseLastSeason);
+                    if (franchiseLastSeason) {
                         previousFranchises.push(data.franchises[i]);
                     }
                 };
@@ -90,12 +91,12 @@ function TeamsPage() {
     const displayTeams = (team) => {
         return (
             <li key={team.id} className="flex align-center justify-center">
-                <a href={team.officialSiteUrl} target="_blank" rel="noreferrer" className="width-40"><img src={team.logo} alt={team.name} className="logo width-100"></img></a>
+                <a href={team.officialUrl} target="_blank" rel="noreferrer" className="width-40"><img src={team.logo} alt={team.teamName} className="logo width-100"></img></a>
                 <div className="width-40">
-                    <a href={team.officialSiteUrl} target="_blank" rel="noreferrer">{team.name}</a>
+                    <a href={team.officialUrl} target="_blank" rel="noreferrer">{team.teamName}</a>
                     <p className="margin-top-0">
-                        Since: {team.firstYearOfPlay} <br></br>
-                        Venue: {team.venue.name}, {team.venue.city}
+                        Since: {team.playedSince} <br></br>
+                        Venue: {team.venue}, {team.hometown}
                     </p>
                 </div>
             </li>

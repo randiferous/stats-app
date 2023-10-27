@@ -1,0 +1,9 @@
+type Teams @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  teamName: String
+  division: String
+  playedSince: String
+  venue: String
+  hometown: String
+  officialURL: String
+}
