@@ -73,7 +73,6 @@ function TeamsPage() {
 
                 for (let i = 0; i < data.franchises.length; i++) {
                     const franchiseLastSeason = data.franchises[i].lastSeasonId?.toString();
-                    console.log(franchiseLastSeason);
                     if (franchiseLastSeason) {
                         previousFranchises.push(data.franchises[i]);
                     }
