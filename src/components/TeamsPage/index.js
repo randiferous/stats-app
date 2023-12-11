@@ -4,24 +4,23 @@ import { API } from "aws-amplify";
 import { listTeams } from '../../graphql/queries';
 
 function TeamsPage() {
-    const [teams, setTeams] = useState([]);
     const [atlanticTeams, setAtlanticTeams] = useState([]);
     const [metropolitanTeams, setMetropolitanTeams] = useState([]);
     const [centralTeams, setCentralTeams] = useState([]);
     const [pacificTeams, setPacificTeams] = useState([]);
-    const [previousFranchises, setPreviousFranchises] = useState([]);
 
     useEffect(() => {
         const atlanticTeams = [];
         const metropolitanTeams = [];
         const centralTeams = [];
         const pacificTeams = [];
-
+        
         const fetchData = async () => {
             try {
                 const allTeams = await API.graphql({
                     query: listTeams
                 });
+           
                 const allTeamsData = allTeams.data.listTeams.items;
 
                 for (let i = 0; i < allTeamsData.length; i++) {
@@ -54,43 +53,19 @@ function TeamsPage() {
                 setMetropolitanTeams(sortedMetropolitanTeams);
                 setCentralTeams(sortedCentralTeams);
                 setPacificTeams(sortedPacificTeams);
-                setTeams(allTeamsData);
             } catch (error) {
                 console.error('Error fetching NHL data');
+                console.log(error)
             }
         };
 
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const previousFranchises = [];
-
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://statsapi.web.nhl.com/api/v1/franchises')
-                const data = await response.json();
-
-                for (let i = 0; i < data.franchises.length; i++) {
-                    const franchiseLastSeason = data.franchises[i].lastSeasonId?.toString();
-                    if (franchiseLastSeason) {
-                        previousFranchises.push(data.franchises[i]);
-                    }
-                };
-
-                setPreviousFranchises(previousFranchises);
-            } catch (error) {
-                console.error('Error fetching NHL data');
-            }
-        };
-
-        fetchData();
-    }, [teams]);
-
     const displayTeams = (team) => {
         return (
             <li key={team.id} className="flex align-center justify-center">
-                <a href={team.officialUrl} target="_blank" rel="noreferrer" className="width-40"><img src={team.logo} alt={team.teamName} className="logo width-100"></img></a>
+                <a href={team.officialURL} target="_blank" rel="noreferrer" className="width-40"><img src={team.logo} alt={team.teamName} className="logo width-100"></img></a>
                 <div className="width-40">
                     <a href={team.officialUrl} target="_blank" rel="noreferrer">{team.teamName}</a>
                     <p className="margin-top-0">
@@ -149,14 +124,6 @@ function TeamsPage() {
                     </div>
                 </div>
             </div>
-            <h2>Previous Franchises</h2>
-            <ul className="no-bullets no-start-padding">
-                {previousFranchises.map((franchise) => (
-                    <li key={franchise.franchiseId}>
-                        {franchise.locationName} {franchise.teamName} ({franchise.firstSeasonId?.toString().substring(0, 4)} - {franchise.lastSeasonId?.toString().substring(4, 8)})
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 }

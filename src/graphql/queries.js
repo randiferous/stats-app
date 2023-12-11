@@ -32,6 +32,7 @@ export const listTeams = /* GraphQL */ `
         venue
         hometown
         officialURL
+        abbreviation
         createdAt
         updatedAt
         __typename

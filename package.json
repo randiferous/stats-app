@@ -3,7 +3,7 @@
   "homepage": "/",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://statsapi.web.nhl.com",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@aws-amplify/cli": "^12.7.1",
     "@aws-amplify/ui-react": "^5.3.1",
@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^5.3.11",
+    "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",

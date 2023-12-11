@@ -7,31 +7,39 @@ function StandingsPage() {
     const [pacificStandings, setPacificStandings] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchApi = async () => {
+            let atlanticTeams = [];
+            let metropolitanTeams = [];
+            let centralTeams = [];
+            let pacificTeams = [];
+
             try {
-                const response = await fetch('https://statsapi.web.nhl.com/api/v1/standings')
+                const response = await fetch('/standings');
                 const data = await response.json();
 
-                for (let i = 0; i < data.records.length; i++) {
-                    if (data.records[i].division.name === 'Atlantic') {
-                        setAtlanticStandings(data.records[i].teamRecords);
-                    } else if (data.records[i].division.name === 'Metropolitan') {
-                        setMetropolitanStandings(data.records[i].teamRecords);
-                    } else if (data.records[i].division.name === 'Central') {
-                        setCentralStandings(data.records[i].teamRecords);
+                for (let i = 0; i < data.standings.length; i++) {
+                    if (data.standings[i].divisionName === "Atlantic") {
+                        atlanticTeams.push(data.standings[i]);
+                    } else if (data.standings[i].divisionName === "Metropolitan") {
+                        metropolitanTeams.push(data.standings[i]);
+                    } else if (data.standings[i].divisionName === "Central") {
+                        centralTeams.push(data.standings[i]);
                     } else {
-                        setPacificStandings(data.records[i].teamRecords);
+                        pacificTeams.push(data.standings[i]);
                     }
                 }
 
-                // console.log(data)
+                setAtlanticStandings(atlanticTeams);
+                setMetropolitanStandings(metropolitanTeams);
+                setCentralStandings(centralTeams);
+                setPacificStandings(pacificTeams);
             } catch (error) {
-                console.error('Error fetching NHL data');
+                console.error('Error fetching API data');
+                console.log(error);
             }
-        };
-
-        fetchData();
-    }, []);
+        }
+        fetchApi();
+    }, [])
 
     const divisionStandings = (divisionArray) => {
         return (
@@ -52,16 +60,16 @@ function StandingsPage() {
                 <tbody>
                     {divisionArray.map((team, index) => {
                         return (
-                            <tr key={team.team.id} className={`${index === 7 ? "" : "underlined-row"}`}>
-                                <td>{team.divisionRank}</td>
-                                <td>{team.team.name}</td>
+                            <tr key={team.teamAbbrev.default} className={`${index === 7 ? "" : "underlined-row"}`}>
+                                <td>{index + 1}</td>
+                                <td>{team.teamName.default}</td>
                                 <td>{team.gamesPlayed}</td>
-                                <td>{team.leagueRecord.wins}</td>
-                                <td>{team.leagueRecord.losses}</td>
-                                <td>{team.leagueRecord.ot}</td>
+                                <td>{team.wins}</td>
+                                <td>{team.losses}</td>
+                                <td>{team.otLosses}</td>
                                 <td>{team.points}</td>
-                                <td>{team.goalsScored}</td>
-                                <td>{team.goalsAgainst}</td>
+                                <td>{team.goalFor}</td>
+                                <td>{team.goalAgainst}</td>
                             </tr>
                         )
                     })}

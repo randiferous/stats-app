@@ -8,8 +8,10 @@ function DraftPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://statsapi.web.nhl.com/api/v1/draft')
+        const response = await (fetch('/draft'))
+       // const response = await fetch('https://statsapi.web.nhl.com/api/v1/draft')
         const data = await response.json();
+        console.log(data)
 
         const dataDraftYear = data.drafts[0].draftYear;
         const dataFullDraft = data.drafts[0].rounds[round-1];

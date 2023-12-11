@@ -6,4 +6,6 @@ type Teams @model @auth(rules: [{allow: public}]) {
   venue: String
   hometown: String
   officialURL: String
+  abbreviation: String
 }
+ 
