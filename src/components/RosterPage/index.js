@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import logos from '../../utility/logos';
 
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from '../../aws-exports';
+import amplifyconfig from '../../amplifyconfiguration.json'
+import { API } from 'aws-amplify';
+Amplify.configure(awsExports);
+Amplify.configure(amplifyconfig);
+
+
 function RosterPage() {
     const [teams, setTeams] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState({ teamID: "", teamName: "Select Team" });
@@ -13,8 +22,12 @@ function RosterPage() {
 
         const fetchData = async () => {
             try {
-                const response = await fetch('/standings')
-                const data = await response.json();
+                const response = await API.get('nhlapi', '/nhlapi/standings',
+                    {
+                        headers: {},
+                        response: true
+                    });
+                const data = response.data.body;
 
                 for (let i = 0; i < data.standings.length; i++) {
                     const teamAbbrev = data.standings[i].teamAbbrev.default;
@@ -51,10 +64,14 @@ function RosterPage() {
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`/team/${selectedTeam.teamID}`);
-                const data = await response.json();
-
-                console.log(data)
+                //const response = await fetch(`/team/${selectedTeam.teamID}`);
+               const response = await API.get('nhlapi', `/nhlapi/team/${selectedTeam.teamID}`,
+                    {
+                        headers: {},
+                        response: true
+                    });
+                const data = response.data.body;
+                //const data = await response.json();
 
                 for (let i = 0; i < data.skaters.length; i++) {
                     const firstName = data.skaters[i].firstName.default;
@@ -117,6 +134,7 @@ function RosterPage() {
                 setGoalies(sortedGoalieArray);
             } catch (error) {
                 console.error('Error fetching NHL data');
+                console.log(error);
             }
         };
 

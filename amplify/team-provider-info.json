@@ -19,6 +19,16 @@
           "webClientId": "1qh4b5rviuc98rk7204dsvostk",
           "nativeClientId": "1qh4b5rviuc98rk7204dsvostk"
         }
+      },
+      "function": {
+        "nhlapi": {
+          "deploymentBucketName": "amplify-amplifyf2c8558d68fb4-staging-162429-deployment",
+          "s3Key": "amplify-builds/nhlapi-6845532f42714b59416e-build.zip"
+        }
+      },
+      "api": {
+        "statsapp": {},
+        "nhlapi": {}
       }
     }
   }

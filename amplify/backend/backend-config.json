@@ -1,5 +1,19 @@
 {
   "api": {
+    "nhlapi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "nhlapi"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "statsapp": {
       "dependsOn": [],
       "output": {
@@ -29,6 +43,13 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito",
       "serviceType": "imported"
+    }
+  },
+  "function": {
+    "nhlapi": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -61,6 +82,22 @@
         {
           "category": "auth",
           "resourceName": "statsapp7f6a332c"
+        }
+      ]
+    },
+    "AMPLIFY_function_nhlapi_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "nhlapi"
+        }
+      ]
+    },
+    "AMPLIFY_function_nhlapi_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "nhlapi"
         }
       ]
     }

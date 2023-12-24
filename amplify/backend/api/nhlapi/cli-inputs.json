@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/nhlapi": {
+      "name": "/nhlapi",
+      "lambdaFunction": "nhlapi",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

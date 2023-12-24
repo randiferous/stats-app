@@ -1,6 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createNBATeams = /* GraphQL */ `
+  mutation CreateNBATeams(
+    $input: CreateNBATeamsInput!
+    $condition: ModelNBATeamsConditionInput
+  ) {
+    createNBATeams(input: $input, condition: $condition) {
+      id
+      teamPlace
+      teamName
+      division
+      playedSince
+      venue
+      hometown
+      officialURL
+      abbreviation
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateNBATeams = /* GraphQL */ `
+  mutation UpdateNBATeams(
+    $input: UpdateNBATeamsInput!
+    $condition: ModelNBATeamsConditionInput
+  ) {
+    updateNBATeams(input: $input, condition: $condition) {
+      id
+      teamPlace
+      teamName
+      division
+      playedSince
+      venue
+      hometown
+      officialURL
+      abbreviation
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteNBATeams = /* GraphQL */ `
+  mutation DeleteNBATeams(
+    $input: DeleteNBATeamsInput!
+    $condition: ModelNBATeamsConditionInput
+  ) {
+    deleteNBATeams(input: $input, condition: $condition) {
+      id
+      teamPlace
+      teamName
+      division
+      playedSince
+      venue
+      hometown
+      officialURL
+      abbreviation
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createTeams = /* GraphQL */ `
   mutation CreateTeams(
     $input: CreateTeamsInput!
@@ -14,6 +77,7 @@ export const createTeams = /* GraphQL */ `
       venue
       hometown
       officialURL
+      abbreviation
       createdAt
       updatedAt
       __typename
@@ -33,6 +97,7 @@ export const updateTeams = /* GraphQL */ `
       venue
       hometown
       officialURL
+      abbreviation
       createdAt
       updatedAt
       __typename
@@ -52,6 +117,7 @@ export const deleteTeams = /* GraphQL */ `
       venue
       hometown
       officialURL
+      abbreviation
       createdAt
       updatedAt
       __typename

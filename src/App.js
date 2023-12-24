@@ -5,13 +5,17 @@ import TeamsPage from './components/TeamsPage';
 import GamesPage from './components/GamesPage';
 import StandingsPage from './components/Standings';
 import RosterPage from './components/RosterPage';
+import NBAPage from './components/NBAPage';
 // import DraftPage from './components/DraftPage'
 
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
+import amplifyconfig from './amplifyconfiguration.json'
+import { API } from 'aws-amplify';
 Amplify.configure(awsExports);
+Amplify.configure(amplifyconfig);
 
 function App() {
   const [currentPage, setCurrentPage] = useState(window.location.href)
@@ -19,23 +23,21 @@ function App() {
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   const { authStatus } = useAuthenticator(context => [context.authStatus]);
 
+  // async function postTodo() {
+  //   try {
+  //     const response = await API.get('nhlapi', '/nhlapi/test',
+  //       {
+  //         headers: {},
+  //         response: true
+  //       });
+  //     console.log(response, 'response');
+  //   } catch (e) {
+  //     console.log('Get call failed: ', e);
+  //   }
+  // }
+
   // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-
-  //       // const response = await fetch('https://statsapi.web.nhl.com/api/v1/teams')
-  //       const response = await fetch("https://api-web.nhle.com/v1/standings/2023-12-09")
-
-  //       const data = await response.json();
-  //       console.log(data)
-
-  //     } catch (error) {
-  //       console.log(error)
-  //       console.error('Error fetching NHL data');
-
-  //     }
-  //   };
-  //   fetchData();
+  //   postTodo();
   // }, []);
 
   // useEffect(() => {
@@ -81,7 +83,12 @@ function App() {
             <li>
               <Link to="/teams" onClick={() => setCurrentPage("teams")}
                 className={`flex align-center justify-center pointer text-slateblue width-120px height-100 background-offwhite border-radius-5 no-underline 
-                ${currentPage.includes("teams") ? "text-bold" : ""}`}>Teams</Link>
+                ${currentPage.includes("teams") ? "text-bold" : ""}`}>NHL</Link>
+            </li>
+            <li>
+              <Link to="/nba" onClick={() => setCurrentPage("nba")}
+                className={`flex align-center justify-center pointer text-slateblue width-120px height-100 background-offwhite border-radius-5 no-underline 
+                ${currentPage.includes("nba") ? "text-bold" : ""}`}>NBA</Link>
             </li>
             <li>
               <Link to="/standings" onClick={() => setCurrentPage("standings")}
@@ -106,8 +113,8 @@ function App() {
                     ${currentPage.includes("draft") ? "text-bold" : ""}`}>Draft</Link>
                 </li> */}
                 <li className="text-slateblue">
-                  <button onClick={handleSignOut} 
-                  className="flex align-center justify-center pointer text-slateblue width-120px height-100 background-offwhite border-radius-5 no-underline no-border">Sign out</button>
+                  <button onClick={handleSignOut}
+                    className="flex align-center justify-center pointer text-slateblue width-120px height-100 background-offwhite border-radius-5 no-underline no-border">Sign out</button>
                 </li>
               </>
             ) : (
@@ -125,6 +132,7 @@ function App() {
           <Route path="/" element={<Navigate to="/teams" replace />}></Route>
           <Route path="/stats-app" element={<Navigate to="/teams" replace />}></Route>
           <Route path="/teams" element={<TeamsPage />}></Route>
+          <Route path="/nba" element={<NBAPage />}></Route>
           <Route path="/standings" element={<StandingsPage />}></Route>
           <Route path="/roster" element={<RosterPage />}></Route>
           <Route path="/games" element=

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from '../../aws-exports';
+import amplifyconfig from '../../amplifyconfiguration.json'
+import { API } from 'aws-amplify';
+Amplify.configure(awsExports);
+Amplify.configure(amplifyconfig);
+
 function StandingsPage() {
     const [atlanticStandings, setAtlanticStandings] = useState([]);
     const [metropolitanStandings, setMetropolitanStandings] = useState([]);
@@ -14,8 +22,13 @@ function StandingsPage() {
             let pacificTeams = [];
 
             try {
-                const response = await fetch('/standings');
-                const data = await response.json();
+                const response = await API.get('nhlapi', '/nhlapi/standings',
+                    {
+                        headers: {},
+                        response: true
+                    });
+                const data = response.data.body;
+
 
                 for (let i = 0; i < data.standings.length; i++) {
                     if (data.standings[i].divisionName === "Atlantic") {
